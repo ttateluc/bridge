@@ -1,0 +1,37 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Archives
+*.zip
+*.tar.gz
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# setting configuration file
+.webbridge.settings.json
+
+# Binaries
+dynamic/*
+web-bridge
+
+# Log files
+debug.log
+
+#Test binaries
+tests/http-proxy/http-proxy
+tests/tunnel/data-channel-create/data-channel-create
+tests/tunnel/data-channel-wait/data-channel-wait
+
+# Protocol Buffer
+*.pb.go

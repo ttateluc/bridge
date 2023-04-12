@@ -1,0 +1,34 @@
+sudo: required
+dist: bionic
+language: go
+go:
+  - "1.14.x"
+before_install:
+  - sudo apt-get install -qq pkg-config fuse build-essential protobuf-compiler
+  - curl -sL https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh -o install_nvm.sh
+  - bash install_nvm.sh
+  - command -v nvm
+cache:
+  apt: true
+jobs:
+  include:
+      - stage: build
+        name: 'Ubuntu 18 Main GoLang Build Test'
+        script:
+          - go get -u -v github.com/golang/protobuf/proto
+          - go get -u -v github.com/golang/protobuf/protoc-gen-go
+          - protoc --go_out=. internal/goproxy/*.proto
+          - go get -u -v github.com/swaggo/swag/cmd/swag
+          - swag init -g api/rest/router.go
+          - go run -race . -debug -test # test run with race
+          - ./tests/http-proxy/build.sh
+          - ./tests/tunnel/data-channel-create/build.sh
+          - ./tests/tunnel/data-channel-wait/build.sh
+          - go build -i -v -ldflags="-X 'main.GitHash=$(git describe --always --long --dirty)' -X 'main.Version=$(date +'%y.%m.%d')'" github.com/duality-solutions/web-bridge
+          - ./web-bridge -debug -test
+      - stage: build
+        name: 'Ubuntu 18 React Web Application Build Test'
+        script:
+          - cd web 
+          - nvm install 12.18.4 && nvm use 12.18.4 && npm install -g yarn && yarn install
+          - npm install && yarn build
