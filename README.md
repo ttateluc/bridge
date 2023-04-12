@@ -1,4 +1,4 @@
-# WebBridge
+# bridge
 
 ![#](assets/web-bridge.png)
 
