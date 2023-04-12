@@ -1,6 +1,6 @@
 # bridge
+![DALL·E 2023-04-12 17 56 43 - aesthetic bridge, digital art](https://user-images.githubusercontent.com/97220909/231604017-dad8c39b-313c-4a0d-8b2a-398db9d36999.png)
 
-![#](assets/web-bridge.png)
 
 Connecting HTTP servers and clients on disparate networks using WebRTC and blockchain signaling
 
